@@ -15,7 +15,7 @@ input, textarea, select { font-family: 'Poppins', sans-serif; }
 body{
   margin: 0;
   padding: 0;
-  background-color: #fefdff;
+  background-color: #1e1e1e;
   overflow-x: hidden; /* Hide horizontal scrollbar */
   font-family: 'Poppins', sans-serif;
   width: 300px;
@@ -26,6 +26,7 @@ body{
 h1{
   font-size: 1.15rem;
   font-weight: 500;
+  color: white;
 }
 
 a{
@@ -103,7 +104,7 @@ input{
   border-radius: 100px;
   padding: 5px 10px;
   border: 1px solid #e5e5e5;
-  background-color: whitesmoke;
+  background-color: rgb(255, 255, 255);
   margin-left: 5px;
   display: flex;
   align-items: center;
@@ -142,10 +143,10 @@ input{
 .leaderboard > .oneUser > .bottomRow > .circle {
   height: 22.5px;
   width: 80px;
-  background-color: whitesmoke;
+  padding: 2.5px;
+  background-color: #33333352;
   border-radius: 100px;
   margin-right: 5px;
-
   font-size: 0.55rem;
   display: flex;
   align-items: center;
@@ -153,8 +154,8 @@ input{
 }
 
 .leaderboard > .oneUser > .bottomRow > .solved {
-  background-color: orange;
-  color: white;
+  background-color: #ffa115;
+  color: #333;
   font-weight: 500;
 }
 
