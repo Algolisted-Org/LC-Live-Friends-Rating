@@ -13,6 +13,7 @@
 input, textarea, select { font-family: 'Poppins', sans-serif; }
 
 body{
+  position: relative;
   margin: 0;
   padding: 0;
   background-color: #1e1e1e;
@@ -30,6 +31,7 @@ h1{
   font-size: 1.15rem;
   font-weight: 500;
   color: white;
+  margin-bottom: 5px;
 }
 
 h1 > span{
@@ -68,6 +70,7 @@ input{
   border: 1px solid #000;
   background-color: #333333;
   font-size: 0.75rem;
+  color: white;
 }
 
 .addFriend > .addBtn{
@@ -181,11 +184,51 @@ input{
 .bottomFooter{
   background-color: #242323;
   border-top: 1px solid black;
-  height: 45px;
+  /* height: 50px; */
   width: 100vw;
   position: fixed;
   left: 0;
   bottom: 0;
+
+  padding: 10px 20px;
+  
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-content: center; */
+
+  text-align: center;
+}
+
+.bottomFooter > p {
+  color: white;
+  font-size: 0.6rem;
+  font-weight: 200;
+  /* text-align: center; */
+}
+
+.bottomFooter > a {
+  color: cornflowerblue;
+  font-size: 0.6rem;
+  font-weight: 500;
+  /* text-align: center; */
+}
+
+.githubLink{
+  position: fixed;
+  top: 20px;
+  right: 10px;
+  /* background-color: white; */
+  /* height: 27px; */
+  /* aspect-ratio: 1/1; */
+  /* border-radius: 50%; */
+
+  display: grid;
+  place-items: center;
+}
+
+.githubLink > img {
+  height: 30px;
+  border-radius: 100px;
 }
 
 ::-webkit-scrollbar {
@@ -201,3 +244,5 @@ input{
   background-color: #335ddc;
   border-radius: 100px;
 }
+
+
