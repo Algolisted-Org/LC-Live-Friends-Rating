@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=Moon+Dance&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+*, ::after, ::before{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  /* font-family: sohne-var, "Helvetica Neue", Arial, sans-serif; */
+  color: #333;
+  /* scroll-behavior: smooth; */
+}
+
+input, textarea, select { font-family: 'Poppins', sans-serif; }
+
+body{
+  margin: 0;
+  padding: 0;
+  background-color: #fefdff;
+  overflow-x: hidden; /* Hide horizontal scrollbar */
+  font-family: 'Poppins', sans-serif;
+  width: 300px;
+  max-width: 100% !important;
+  padding: 20px;
+}
+
+h1{
+  font-size: 1.15rem;
+  font-weight: 500;
+}
+
+a{
+  color: cornflowerblue;
+  text-decoration: none;
+  font-weight: 300;
+}
+
+input{
+  border: 1px solid black;
+  outline: none;
+}
+
+.addFriend{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin: 10px 0 0 0;
+}
+
+.addFriend > input{
+  flex: 1;
+  padding: 7.5px 10px;
+  border-radius: 100px;
+  margin: 0 5px 0 0;
+  border: 1px solid #e5e5e5;
+  font-size: 0.75rem;
+}
+
+.addFriend > .addBtn{
+  background-color: #333;
+  border-radius: 100px;
+  color: whitesmoke;
+  height: 25px;
+  aspect-ratio: 1/1;
+  display: grid;
+  place-items: center;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.leaderboard{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.leaderboard > .oneUser {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 10px;
+}
+
+.leaderboard > .oneUser > .topRow {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.leaderboard > .oneUser > .topRow > .friendsRank{
+  background-color: #333;
+  border-radius: 100px;
+  color: whitesmoke;
+  aspect-ratio: 1/1;
+  display: grid;
+  place-items: center;
+  height: 25px;
+  font-size: 0.65rem;
+}
+
+.leaderboard > .oneUser > .topRow > .userInfo{
+  border-radius: 100px;
+  padding: 5px 10px;
+  border: 1px solid #e5e5e5;
+  background-color: whitesmoke;
+  margin-left: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.leaderboard > .oneUser > .topRow > .userInfo > a{
+  font-weight: 500;
+}
+
+.leaderboard > .oneUser > .topRow > .userInfo > b{
+  font-weight: 500;
+}
+
+.leaderboard > .oneUser > .bottomRow {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+  padding-left: 35px;
+}
+
+.leaderboard > .oneUser > .bottomRow {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+  padding-left: 35px;
+}
+
+.leaderboard > .oneUser > .bottomRow > img {
+  height: 15px;
+  margin-right: 10px;
+}
+
+
+.leaderboard > .oneUser > .bottomRow > .circle {
+  height: 22.5px;
+  width: 80px;
+  background-color: whitesmoke;
+  border-radius: 100px;
+  margin-right: 5px;
+
+  font-size: 0.55rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.leaderboard > .oneUser > .bottomRow > .solved {
+  background-color: orange;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+ 
+::-webkit-scrollbar-track {
+  background-color: #f0e9e9;
+  border-left: 1px solid #e9e5e5;
+}
+ 
+::-webkit-scrollbar-thumb {
+  background-color: #335ddc;
+  border-radius: 100px;
+}

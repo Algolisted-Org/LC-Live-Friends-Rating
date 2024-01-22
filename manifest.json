@@ -1,0 +1,16 @@
+{
+    "manifest_version": 3,
+    "name": "LC Friends Live Contest Ranking",
+    "version": "0.0.1",
+    "description": "A simple Chrome extension example",
+    "action": {
+        "default_icon": "logo.png",
+        "default_popup": "popup.html"
+    },
+    "icons": {
+        "128": "logo.png"
+    },
+    "permissions": [
+        "activeTab"
+    ]
+}
