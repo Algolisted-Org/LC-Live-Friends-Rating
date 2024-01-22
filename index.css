@@ -130,7 +130,7 @@ input{
   display: flex;
   align-items: center;
   margin-top: 5px;
-  padding-left: 35px;
+  padding-left: 30px;
 }
 
 .leaderboard > .oneUser > .bottomRow > img {
@@ -154,6 +154,8 @@ input{
 
 .leaderboard > .oneUser > .bottomRow > .solved {
   background-color: orange;
+  color: white;
+  font-weight: 500;
 }
 
 ::-webkit-scrollbar {
