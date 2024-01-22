@@ -29,6 +29,16 @@ h1{
   color: white;
 }
 
+h1 > span{
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: #b4c682;
+  padding: 2.5px 7.5px;
+  background-color: #333333;
+  border-radius: 100px;
+  /* color: #1e1e1e; */
+}
+
 a{
   color: cornflowerblue;
   text-decoration: none;
@@ -52,7 +62,8 @@ input{
   padding: 7.5px 10px;
   border-radius: 100px;
   margin: 0 5px 0 0;
-  border: 1px solid #e5e5e5;
+  border: 1px solid #000;
+  background-color: #333333;
   font-size: 0.75rem;
 }
 
@@ -64,6 +75,7 @@ input{
   aspect-ratio: 1/1;
   display: grid;
   place-items: center;
+  /* border: 1px solid #000; */
   font-size: 15px;
   cursor: pointer;
 }
@@ -97,13 +109,15 @@ input{
   display: grid;
   place-items: center;
   height: 25px;
+  /* border: 1px solid #000; */
   font-size: 0.65rem;
 }
 
 .leaderboard > .oneUser > .topRow > .userInfo{
   border-radius: 100px;
   padding: 5px 10px;
-  border: 1px solid #e5e5e5;
+  /* border: 1px solid #e5e5e5; */
+  border: 1px solid #000;
   background-color: rgb(255, 255, 255);
   margin-left: 5px;
   display: flex;
@@ -145,6 +159,7 @@ input{
   width: 80px;
   padding: 2.5px;
   background-color: #33333352;
+  border: 1px solid #000;
   border-radius: 100px;
   margin-right: 5px;
   font-size: 0.55rem;
