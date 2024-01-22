@@ -21,7 +21,9 @@ body{
   width: 300px;
   max-width: 100% !important;
   padding: 20px;
-  height: 300px;
+
+  display: flex;
+  flex-direction: column;
 }
 
 h1{
@@ -85,7 +87,7 @@ input{
   width: 100%;
   display: flex;
   flex-direction: column;
-  height: 200px;
+  padding-bottom: 40px;
 }
 
 .leaderboard > .oneUser {
@@ -176,13 +178,23 @@ input{
   font-weight: 500;
 }
 
+.bottomFooter{
+  background-color: #242323;
+  border-top: 1px solid black;
+  height: 45px;
+  width: 100vw;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+}
+
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 2px;
 }
  
 ::-webkit-scrollbar-track {
   background-color: #f0e9e9;
-  border-left: 1px solid #e9e5e5;
+  border-left: 0.1px solid #e9e5e5;
 }
  
 ::-webkit-scrollbar-thumb {
