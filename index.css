@@ -129,6 +129,7 @@ input{
   margin-left: 5px;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .leaderboard > .oneUser > .topRow > .userInfo > a{
