@@ -1,26 +1,11 @@
-// Function to fetch data from the URL
-async function fetchData() {
-    const url = "https://leetcode.com/contest/api/ranking/weekly-contest-379/?pagination=1&region=global";
-  
-    try {
-      // Make the API request
-      const response = await fetch(url);
-  
-      // Check if the request was successful (status code 200)
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-  
-      // Parse the response JSON
-      const data = await response.json();
-  
-      // Do something with the data (for example, log it)
-      console.log(data);
-    } catch (error) {
-      console.error("Error fetching data:", error.message);
-    }
-  }
-  
-  // Call the fetchData function
-  fetchData();
-  
+document.addEventListener('DOMContentLoaded', function () {
+  fetch('https://algolisted.cyclic.app/coding-questions/question/striver-sde-sheet')
+      .then(response => response.json())
+      .then(data => {
+          // Handle the data as needed
+          console.log(data);
+          // Update the HTML with the fetched data or perform other actions
+          document.getElementById('result').innerText = "Data fetched";
+      })
+      .catch(error => console.error('Error:', error));
+});
