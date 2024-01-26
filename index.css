@@ -151,6 +151,12 @@ input{
   padding: 0;
 }
 
+.current-status{
+  padding: 10px 5px;
+  color: rgb(178, 178, 178);
+  font-size: 0.7rem;
+}
+
 .leaderboard > .oneUser > .bottomRow {
   width: 100%;
   display: flex;

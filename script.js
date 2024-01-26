@@ -19,27 +19,34 @@ document.addEventListener('DOMContentLoaded', async function () {
     async function updateLeaderboard() {
         // Display loading message
         const leaderboardContainer = document.getElementById('leaderboard');
-        leaderboardContainer.innerHTML = '<p>Data loading...</p>';
-
+        leaderboardContainer.innerHTML = '<p class="current-status">Data loading . . .  🚀</p>';
+    
         // Fetch data from the API
         const apiURL = 'https://lc-live-ranking-api.vercel.app/?contest=biweekly-contest-122';
         try {
             const response = await fetch(apiURL);
             const apiData = await response.json();
-
+    
             // Retrieve friends from local storage
             const friendsData = await getLocalStorage('friends');
             const friends = friendsData.friends || [];
-
+    
+            // Sort the friends based on their rank
+            friends.sort((a, b) => {
+                const userA = apiData.total_ranks_simplified.find(user => user.username === a);
+                const userB = apiData.total_ranks_simplified.find(user => user.username === b);
+                return (userA ? userA.rank : Infinity) - (userB ? userB.rank : Infinity);
+            });
+    
             // Get the leaderboard container
             const leaderboardContainer = document.getElementById('leaderboard');
             // Clear existing leaderboard content
             leaderboardContainer.innerHTML = '';
-
+    
             // Iterate through each friend and add them to the leaderboard
             friends.forEach(async (friend, index) => {
                 const matchingUser = apiData.total_ranks_simplified.find(user => user.username === friend);
-
+    
                 if (matchingUser) {
                     const userHtml = `
                         <div class="oneUser">
@@ -82,29 +89,29 @@ document.addEventListener('DOMContentLoaded', async function () {
                     leaderboardContainer.innerHTML += userHtml;
                 }
             });
-
+    
             // Add event listeners to deleteUser elements
             document.querySelectorAll('.deleteUser').forEach(deleteUserElement => {
                 deleteUserElement.addEventListener('click', async function () {
                     const usernameToDelete = this.dataset.username;
-
+    
                     // Retrieve stored friends from local storage
                     const data = await getLocalStorage('friends');
                     const friends = data.friends || [];
-
+    
                     // Remove the friend with the specified username
                     const updatedFriends = friends.filter(friend => friend !== usernameToDelete);
-
+    
                     // Save updated friends to local storage
                     await setLocalStorage({ 'friends': updatedFriends });
-
+    
                     // Update the leaderboard after deleting the friend
                     await updateLeaderboard();
                 });
             });
         } catch (error) {
             // Display an error message if fetching data fails
-            leaderboardContainer.innerHTML = '<p>Error loading data</p>';
+            leaderboardContainer.innerHTML = '<p class="current-status">Error loading data 😓, try again!</p>';
             console.error('Error loading data:', error);
         }
     }
