@@ -7,11 +7,15 @@
         "default_icon": "logo.png",
         "default_popup": "popup.html"
     },
+    "background": {
+        "service_worker": "background.js"
+    },
     "icons": {
         "128": "logo.png"
     },
     "permissions": [
         "activeTab",
-        "storage" 
+        "contextMenus",
+        "storage"
     ]
 }
