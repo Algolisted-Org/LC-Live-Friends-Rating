@@ -36,9 +36,37 @@ document.addEventListener('DOMContentLoaded', async function () {
                             <a href="/" class="username">@${friend}</a>
                             <div class="rank">: <b>-</b></div>
                         </div>
+                        <div class="deleteUser" data-username="${friend}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
+                                <!-- Diagonal line from top-left to bottom-right -->
+                                <line x1="0" y1="0" x2="100" y2="100" stroke="white" stroke-width="4"/>
+                                <!-- Diagonal line from top-right to bottom-left -->
+                                <line x1="100" y1="0" x2="0" y2="100" stroke="white" stroke-width="4"/>
+                            </svg>
+                        </div>
                     </div>
                 </div>`;
             leaderboardContainer.innerHTML += userHtml;
+        });
+
+        // Add event listeners to deleteUser elements
+        document.querySelectorAll('.deleteUser').forEach(deleteUserElement => {
+            deleteUserElement.addEventListener('click', async function () {
+                const usernameToDelete = this.dataset.username;
+
+                // Retrieve stored friends from local storage
+                const data = await getLocalStorage('friends');
+                const friends = data.friends || [];
+
+                // Remove the friend with the specified username
+                const updatedFriends = friends.filter(friend => friend !== usernameToDelete);
+
+                // Save updated friends to local storage
+                await setLocalStorage({ 'friends': updatedFriends });
+
+                // Update the leaderboard after deleting the friend
+                await updateLeaderboard();
+            });
         });
     }
 

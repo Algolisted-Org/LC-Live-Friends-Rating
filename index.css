@@ -140,6 +140,17 @@ input{
   font-weight: 500;
 }
 
+.leaderboard > .oneUser > .topRow > .deleteUser {
+  cursor: pointer;
+}
+
+.leaderboard > .oneUser > .topRow > .deleteUser > svg{
+  height: 8px;
+  width: 22px;
+  margin: 0;
+  padding: 0;
+}
+
 .leaderboard > .oneUser > .bottomRow {
   width: 100%;
   display: flex;
