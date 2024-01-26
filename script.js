@@ -7,7 +7,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (friendUsername !== '') {
             // Send a message to the background script to add the friend
-            chrome.runtime.sendMessage({ action: 'addFriend', friend: friendUsername });
+            chrome.runtime.sendMessage({ action: 'addFriend', friend: friendUsername }, function(response) {
+                // Handle the response if needed
+                console.log(response);
+            });
 
             // Clear the input field
             document.querySelector('input').value = '';
