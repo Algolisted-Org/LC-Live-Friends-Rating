@@ -1,134 +1,151 @@
-let contestStatus = "No Contest Running";
-let contestURL = null;
+// script.js
 
-// Function to get the current Indian week day and time
-function getCurrentIndianTime() {
-    // Get the current UTC date and time
-    const now = new Date();
-
-    // Adjust for Indian time zone (GMT+5:30)
-    const indianTime = new Date(now.getTime() + (5.5 * 60 * 60 * 1000));
-
-    // Get the day of the week (0 for Sunday, 1 for Monday, etc.)
-    const indianDay = indianTime.getUTCDay();
-
-    // Array of Indian week days
-    const indianWeekDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-
-    // Get the current Indian week day
-    const currentIndianDay = indianWeekDays[indianDay];
-
-    // Get the current time in 24-hour format
-    const hours = indianTime.getUTCHours();
-    const minutes = indianTime.getUTCMinutes();
-
-    // Construct the string for current Indian time
-    const currentTimeString = `${hours < 10 ? '0' + hours : hours}:${minutes < 10 ? '0' + minutes : minutes}`;
-
-    // Return an object containing the current Indian day and time
-    return {
-        day: currentIndianDay,
-        time: currentTimeString
-    };
-}
-
-// Function to calculate the weekly contest number based on the start date and the current date
-function calculateWeeklyContestNumber(startDate) {
-    const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
-
-    // Start date: December 24, 2023
-    const contestStartDate = new Date(startDate);
-
-    // Current date
-    const currentDate = new Date();
-
-    // Calculate the number of days between start date and current date
-    const daysPassed = Math.round(Math.abs((contestStartDate.getTime() - currentDate.getTime()) / (oneDay)));
-
-    // Calculate the number of Sundays passed
-    const sundaysPassed = Math.floor(daysPassed / 7);
-
-    // Initial contest number
-    const initialContestNumber = 377;
-
-    // Calculate the current contest number
-    const currentContestNumber = initialContestNumber + sundaysPassed;
-
-    return currentContestNumber;
-}
-
-// Function to calculate the biweekly contest number based on the start date and the current date
-function calculateBiweeklyContestNumber(startDate) {
-    const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
-
-    // Start date: December 23, 2023
-    const contestStartDate = new Date(startDate);
-
-    // Current date
-    const currentDate = new Date();
-
-    // Calculate the number of days between start date and current date
-    const daysPassed = Math.round(Math.abs((contestStartDate.getTime() - currentDate.getTime()) / (oneDay)));
-
-    // Calculate the number of biweekly intervals passed
-    const biweeklyIntervalsPassed = Math.floor(daysPassed / 14);
-
-    // Initial contest number
-    const initialContestNumber = 120;
-
-    // Calculate the current contest number
-    const currentContestNumber = initialContestNumber + biweeklyIntervalsPassed;
-
-    return currentContestNumber;
-}
-
-// Update the content of the paragraphs based on the current day and time
-document.addEventListener('DOMContentLoaded', function() {
-    // Update the content of the paragraph with class "currentDayTime"
-    const currentDayTimeElement = document.querySelector('.currentDayTime');
-    if (currentDayTimeElement) {
-        const currentTime = getCurrentIndianTime();
-        currentDayTimeElement.textContent = `${currentTime.day}, ${currentTime.time}`;
+document.addEventListener('DOMContentLoaded', async function () {
+    // Function to get data from local storage as a promise
+    function getLocalStorage(key) {
+        return new Promise((resolve) => {
+            chrome.storage.local.get(key, resolve);
+        });
     }
 
-    // Update the content of the paragraph with class "weeklySunday" and set contest status
-    const weeklySundayElement = document.querySelector('.weeklySunday');
-    if (weeklySundayElement) {
-        const currentTime = getCurrentIndianTime();
-        const isSunday = currentTime.day === 'Sunday';
-        const isTime = currentTime.time >= '02:00' && currentTime.time <= '03:30';
-        if (isSunday && isTime) {
-            const contestNumber = calculateWeeklyContestNumber('2023-12-24');
-            contestStatus = `Weekly Contest ${contestNumber} is Running`;
-            contestURL = `https://lc-live-ranking-api.vercel.app/?contest=weekly-contest-${contestNumber}`;
-            weeklySundayElement.textContent = `Active: Weekly Contest ${contestNumber}`;
-        } else {
-            weeklySundayElement.textContent = 'Inactive';
+    // Function to set data to local storage as a promise
+    function setLocalStorage(data) {
+        return new Promise((resolve) => {
+            chrome.storage.local.set(data, resolve);
+        });
+    }
+
+    // Function to update the leaderboard
+    async function updateLeaderboard() {
+        // Display loading message
+        const leaderboardContainer = document.getElementById('leaderboard');
+        leaderboardContainer.innerHTML = '<p class="current-status">Data loading . . .  🚀</p>';
+    
+        // Fetch data from the API
+        const apiURL = findUrl(); // Using the findUrl function to get the URL
+        try {
+            const response = await fetch(apiURL);
+            const apiData = await response.json();
+    
+            // Retrieve friends from local storage
+            const friendsData = await getLocalStorage('friends');
+            const friends = friendsData.friends || [];
+    
+            // Sort the friends based on their rank
+            friends.sort((a, b) => {
+                const userA = apiData.total_ranks_simplified.find(user => user.username === a);
+                const userB = apiData.total_ranks_simplified.find(user => user.username === b);
+                return (userA ? userA.rank : Infinity) - (userB ? userB.rank : Infinity);
+            });
+    
+            // Get the leaderboard container
+            const leaderboardContainer = document.getElementById('leaderboard');
+            // Clear existing leaderboard content
+            leaderboardContainer.innerHTML = '';
+    
+            // Iterate through each friend and add them to the leaderboard
+            friends.forEach(async (friend, index) => {
+                const matchingUser = apiData.total_ranks_simplified.find(user => user.username === friend);
+    
+                if (matchingUser) {
+                    const userHtml = `
+                        <div class="oneUser">
+                            <div class="topRow">
+                                <div class="friendsRank">${index + 1}</div>
+                                <div class="userInfo">
+                                    <a href="/" class="username">@${friend}</a>
+                                    <div class="rank">: <b>#${matchingUser.rank}</b></div>
+                                </div>
+                                <div class="deleteUser" data-username="${friend}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
+                                        <!-- Diagonal line from top-left to bottom-right -->
+                                        <line x1="0" y1="0" x2="100" y2="100" stroke="white" stroke-width="4"/>
+                                        <!-- Diagonal line from top-right to bottom-left -->
+                                        <line x1="100" y1="0" x2="0" y2="100" stroke="white" stroke-width="4"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>`;
+                    leaderboardContainer.innerHTML += userHtml;
+                } else {
+                    const userHtml = `
+                        <div class="oneUser">
+                            <div class="topRow">
+                                <div class="friendsRank">${index + 1}</div>
+                                <div class="userInfo">
+                                    <a href="/" class="username">@${friend}</a>
+                                    <div class="rank">: <b>-</b></div>
+                                </div>
+                                <div class="deleteUser" data-username="${friend}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
+                                        <!-- Diagonal line from top-left to bottom-right -->
+                                        <line x1="0" y1="0" x2="100" y2="100" stroke="white" stroke-width="4"/>
+                                        <!-- Diagonal line from top-right to bottom-left -->
+                                        <line x1="100" y1="0" x2="0" y2="100" stroke="white" stroke-width="4"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>`;
+                    leaderboardContainer.innerHTML += userHtml;
+                }
+            });
+    
+            // Add event listeners to deleteUser elements
+            document.querySelectorAll('.deleteUser').forEach(deleteUserElement => {
+                deleteUserElement.addEventListener('click', async function () {
+                    const usernameToDelete = this.dataset.username;
+    
+                    // Retrieve stored friends from local storage
+                    const data = await getLocalStorage('friends');
+                    const friends = data.friends || [];
+    
+                    // Remove the friend with the specified username
+                    const updatedFriends = friends.filter(friend => friend !== usernameToDelete);
+    
+                    // Save updated friends to local storage
+                    await setLocalStorage({ 'friends': updatedFriends });
+    
+                    // Update the leaderboard after deleting the friend
+                    await updateLeaderboard();
+                });
+            });
+        } catch (error) {
+            // Display an error message if fetching data fails
+            leaderboardContainer.innerHTML = '<p class="current-status">Error loading data 😓, try again!</p>';
+            console.error('Error loading data:', error);
         }
     }
 
-    // Update the content of the paragraph with class "biweeklySaturdayEven" and set contest status
-    const biweeklySaturdayEvenElement = document.querySelector('.biweeklySaturdayEven');
-    if (biweeklySaturdayEvenElement) {
-        const currentTime = getCurrentIndianTime();
-        const isSaturday = currentTime.day === 'Saturday';
-        const isTime = currentTime.time >= '20:00' && currentTime.time <= '21:30';
-        if (isSaturday && isTime) {
-            const contestNumber = calculateBiweeklyContestNumber('2023-12-23');
-            contestStatus = `Biweekly Contest ${contestNumber} is Running`;
-            contestURL = `https://lc-live-ranking-api.vercel.app/?contest=biweekly-contest-${contestNumber}`;
-            biweeklySaturdayEvenElement.textContent = `Active: Biweekly Contest ${contestNumber}`;
-        } else {
-            biweeklySaturdayEvenElement.textContent = 'Inactive';
+    // Function to find the API URL
+    function findUrl() {
+        // For now, returning the hardcoded URL
+        return 'https://lc-live-ranking-api.vercel.app/?contest=biweekly-contest-122';
+    }
+
+    await updateLeaderboard();
+
+    document.querySelector('.addBtn').addEventListener('click', async function () {
+        // Get the input value
+        const friendUsername = document.querySelector('input').value.trim();
+        console.log("Mark 1");
+        console.log("friendUsername : ", friendUsername);
+
+        if (friendUsername !== '') {
+            // Retrieve stored friends from local storage
+            const data = await getLocalStorage('friends');
+            const friends = data.friends || [];
+
+            // Add the new friend username
+            friends.push(friendUsername);
+
+            // Save updated friends to local storage
+            await setLocalStorage({ 'friends': friends });
+
+            // Update the leaderboard with the new friend
+            await updateLeaderboard();
+
+            // Clear the input field
+            document.querySelector('input').value = '';
         }
-    }
-
-    // Update the contest status in HTML
-    const contestStatusElement = document.querySelector('.currContestStatus');
-    if (contestStatusElement) {
-        contestStatusElement.textContent = contestStatus;
-    }
-
-    // Log the contest URL
-    console.log("Contest URL:", contestURL);
+    });
 });

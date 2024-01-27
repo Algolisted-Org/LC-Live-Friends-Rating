@@ -250,12 +250,12 @@ input{
 }
 
 .testResults{
-  padding: 10px 2.5px;
+  padding: 10px 2.5px 0 0;
 
   p{
     color: rgba(194, 232, 105, 0.689);
     font-size: 0.75rem;
-    margin-bottom: 5px;
+    /* margin-bottom: 5px; */
   }
 }
 
