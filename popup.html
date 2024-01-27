@@ -11,11 +11,18 @@
 </head>
 
 <body>
-    <h1>LC Friends Live Contest Ranking <span>No Contest Running</span></h1>
+    <h1>LC Friends Live Contest Ranking <span class="currContestStatus">No Contest Running</span></h1>
     <div class="addFriend">
         <input type="text" placeholder="Friend Username . . .">
         <div class="addBtn">+</div>
     </div>
+    
+    <div class="testResults">
+        <p class="currentDayTime">Hello World</p>
+        <p class="weeklySunday"></p>
+        <p class="biweeklySaturdayEven"></p>
+    </div>
+
     <div class="leaderboard" id="leaderboard">
         <!-- Leaderboard content will be dynamically added here -->
     </div>
@@ -26,7 +33,7 @@
     <a class="githubLink" href="https://github.com/Algolisted-Org/LC-Live-Friends-Rating" target="_blank">
         <img src="https://cdn.pixabay.com/photo/2022/01/30/13/33/github-6980894_960_720.png" alt="">
     </a>
-    <p id="result"></p>
+    
 
     <script src="script.js" type="module"></script>
 </body>
