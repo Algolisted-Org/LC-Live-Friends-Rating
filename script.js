@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                     <div class="topRow">
                         <div class="friendsRank">${index + 1}</div>
                         <div class="userInfo">
-                            <a href="/" class="username">@${friend}</a>
+                            <a href=${`https://leetcode.com/${friend}`} target="_blank" class="username">@${friend}</a>
                             <div class="rank">: <b>-</b></div>
                         </div>
                         <div class="deleteUser" data-username="${friend}">
@@ -127,8 +127,8 @@ document.addEventListener('DOMContentLoaded', async function () {
             const sundaysPassed = Math.floor(daysPassed / 7);
     
             // Initial contest number
-            // const initialContestNumber = 377;
-            const initialContestNumber = 376;
+            const initialContestNumber = 377;
+            // const initialContestNumber = 376; 
     
             // Calculate the current contest number
             const currentContestNumber = initialContestNumber + sundaysPassed;
@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         if (weeklySundayElement) {
             const currentTime = getCurrentIndianTime();
             const isSunday = currentTime.day === 'Sunday';
-            const isTime = currentTime.time >= '06:00' && currentTime.time <= '07:30';
+            const isTime = currentTime.time >= '08:00' && currentTime.time <= '09:30';
             if (isSunday && isTime) {
                 const contestNumber = calculateWeeklyContestNumber('2023-12-24');
                 contestStatus = `Weekly Contest ${contestNumber} is Running`;
@@ -192,7 +192,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 contestURL = `https://lc-live-ranking-api.vercel.app/?contest=biweekly-contest-${contestNumber}`;
                 biweeklySaturdayEvenElement.textContent = `Active: Biweekly Contest ${contestNumber}`;
             } else {
-                biweeklySaturdayEvenElement.textContent = 'Inactive';
+                biweeklySaturdayEvenElement.textContent = '[@admin-TESTING]';
             }
         }
     
