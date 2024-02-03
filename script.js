@@ -86,6 +86,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 
     async function findUrl() {
+        // console.log("HELP");
         let contestStatus = "No Contest Running";
         let contestURL = null;
     
@@ -189,6 +190,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             if (isSaturday && isTime) {
                 const contestNumber = calculateBiweeklyContestNumber('2023-12-23');
                 contestStatus = `Biweekly Contest ${contestNumber} is Running`;
+                
                 contestURL = `https://lc-live-ranking-api.vercel.app/?contest=biweekly-contest-${contestNumber}`;
                 biweeklySaturdayEvenElement.textContent = `Active: Biweekly Contest ${contestNumber}`;
             } else {
