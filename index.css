@@ -98,6 +98,14 @@ input{
   cursor: pointer;
 }
 
+.testResults > .weeklySunday {
+  font-size: 0.6rem;
+}
+
+.testResults > .biweeklySaturdayEven {
+  font-size: 0.6rem;
+}
+
 .leaderboard{
   width: 100%;
   display: flex;

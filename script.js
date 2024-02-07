@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         if (weeklySundayElement) {
             const currentTime = getCurrentIndianTime();
             const isSunday = currentTime.day === 'Sunday';
-            const isTime = currentTime.time >= '08:00' && currentTime.time <= '09:30';
+            const isTime = currentTime.time >= '08:00' && currentTime.time <= '09:35';
             if (isSunday && isTime) {
                 const contestNumber = calculateWeeklyContestNumber('2023-12-24');
                 contestStatus = `Weekly Contest ${contestNumber} is Running`;
@@ -189,7 +189,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         if (biweeklySaturdayEvenElement) {
             const currentTime = getCurrentIndianTime();
             const isSaturday = currentTime.day === 'Saturday';
-            const isTime = currentTime.time >= '20:00' && currentTime.time <= '21:30';
+            const isTime = currentTime.time >= '20:00' && currentTime.time <= '21:35';
             if (isSaturday && isTime) {
                 const contestNumber = calculateBiweeklyContestNumber('2023-12-23');
                 contestStatus = `Biweekly Contest ${contestNumber} is Running`;
