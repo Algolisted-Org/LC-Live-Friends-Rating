@@ -64,6 +64,9 @@ document.addEventListener('DOMContentLoaded', async function () {
                 console.log("apiURL : ", apiURL);
                 const response = await fetch(apiURL);
                 apiData = await response.json();
+                
+                
+
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -80,7 +83,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             const matchingUser = apiData.total_ranks_simplified.find(user => user.username === friend);
             if (matchingUser) {
                 const rankElement = leaderboardContainer.querySelector(`.oneUser:nth-child(${index + 1}) .rank b`);
-                rankElement.textContent = `#${matchingUser.rank}`;
+                rankElement.textContent = `#${matchingUser.rank + 1}`;
             }
         });
     }
@@ -176,9 +179,9 @@ document.addEventListener('DOMContentLoaded', async function () {
                 const contestNumber = calculateWeeklyContestNumber('2023-12-24');
                 contestStatus = `Weekly Contest ${contestNumber} is Running`;
                 contestURL = `https://lc-live-ranking-api.vercel.app/?contest=weekly-contest-${contestNumber}`;
-                weeklySundayElement.textContent = `Active: Weekly Contest ${contestNumber}`;
+                weeklySundayElement.textContent = `Loading top 5000 ranks . . .`;
             } else {
-                weeklySundayElement.textContent = 'Inactive';
+                weeklySundayElement.textContent = '';
             }
         }
     
@@ -192,9 +195,9 @@ document.addEventListener('DOMContentLoaded', async function () {
                 contestStatus = `Biweekly Contest ${contestNumber} is Running`;
                 
                 contestURL = `https://lc-live-ranking-api.vercel.app/?contest=biweekly-contest-${contestNumber}`;
-                biweeklySaturdayEvenElement.textContent = `Active: Biweekly Contest ${contestNumber}`;
+                biweeklySaturdayEvenElement.textContent = `Loading top 5000 ranks . . .`;
             } else {
-                biweeklySaturdayEvenElement.textContent = '[@admin-TESTING]';
+                biweeklySaturdayEvenElement.textContent = '';
             }
         }
     

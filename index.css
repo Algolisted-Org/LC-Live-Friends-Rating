@@ -35,13 +35,20 @@ h1{
 }
 
 h1 > span{
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   font-weight: 500;
   color: #b4c682;
   padding: 2.5px 7.5px;
   background-color: #333333;
   border-radius: 100px;
   /* color: #1e1e1e; */
+}
+
+.headUpdate{
+  font-size: 0.6rem;
+  font-weight: 300;
+  color: #b4c682;
+  margin: 5px 0;
 }
 
 a{
