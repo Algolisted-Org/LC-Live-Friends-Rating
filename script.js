@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         const leaderboardContainer = document.getElementById('leaderboard');
 
         friends.forEach((friend, index) => {
-            const matchingUser = apiData.total_ranks_simplified.find(user => user.username === friend);
+            const matchingUser = apiData.total_ranks_simplified.find(user => user.username.toLowerCase() === friend.toLowerCase());
             if (matchingUser) {
                 const rankElement = leaderboardContainer.querySelector(`.oneUser:nth-child(${index + 1}) .rank b`);
                 rankElement.textContent = `#${matchingUser.rank + 1}`;
