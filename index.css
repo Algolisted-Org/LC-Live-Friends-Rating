@@ -52,7 +52,16 @@ h1 > span{
 }
 
 .headUpdate > b {
-  font-weight: 700;
+  font-weight: 500;
+  color: #b4c682;
+  /* padding: 1.5px 7.5px; */
+  /* border-radius: 100px; */
+  /* background-color: #282828; */
+  /* margin: 0px 2px 5px 0px; */
+}
+
+.headUpdate > i > b {
+  font-weight: 500;
   color: #b4c682;
 }
 
